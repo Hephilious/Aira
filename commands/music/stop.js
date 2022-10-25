@@ -1,6 +1,9 @@
 module.exports = {
   name: "stop",
-  description: "kills the player",
+  description: "kills the guilds active MusicPlayer",
+  argsRequired: false,
+  guildOnly: true,
+  usage: "-stop",
   alias: [],
   run: async (client, message, args, Manager) => {
     const player = await Manager.get(message.guildID);

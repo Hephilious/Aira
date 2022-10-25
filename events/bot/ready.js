@@ -22,4 +22,5 @@ module.exports = (Eris, bot, Manager, guildID) => {
   } catch (err) {
     console.log(err);
   }
+  console.log(bot.commands.Command);
 };

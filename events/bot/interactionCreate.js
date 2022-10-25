@@ -13,7 +13,7 @@ module.exports = (Eris, bot, Manager, guildID, Interaction) => {
         /* Interaction.data.array().map((x) => {
           args.push(x.value);
         }); */
-        return slash_command.run(bot, Interaction, args);
+        return slash_command.run(bot, Interaction, args, Manager);
       }
     });
   }

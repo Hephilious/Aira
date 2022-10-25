@@ -4,16 +4,13 @@ const Eralajs = require("erela.js");
 module.exports = {
   name: "play",
   description: "play something in a voice channel",
+  argsRequired: true,
+  guildOnly: true,
+  usage: "-play <url | search>",
+  invalidUsageMessage:
+    "Use -help play command to get an embed of the command usage",
   alias: [],
   run: async (client, message, args, Manager) => {
-    let argugments;
-    if (
-      typeof message.content === "string" ||
-      message.content instanceof String
-    ) {
-      argugments = message.content.slice("-".length).trim().split(/ +/);
-    }
-
     const channel = message.member.voiceState.channelID;
     if (!channel) {
       return client.createMessage(
@@ -24,7 +21,7 @@ module.exports = {
     }
 
     let res;
-    let search = argugments.join(" ");
+    let search = args[0];
     if (!search) {
       return client.createMessage(
         message.channel.id,
@@ -39,9 +36,15 @@ module.exports = {
         selfDeafen: true,
       });
     } catch (err) {
+      const owner = await client.getDMChannel("350444313236471819");
       client.createMessage(
         message.channel.id,
-        message.author.mention + " The owner hasn't set up Lavalink yet"
+        message.author.mention +
+          " The owner as of yet has not set up Lavalink(I will notify him)."
+      );
+      client.createMessage(
+        owner.id,
+        `${owner.recipient.mention} Set up Lavalink idiot!`
       );
       return console.log("Set up lava linker idiot");
     }

@@ -19,6 +19,8 @@ module.exports = {
     const [channel, message] = args;
     const channelToSend = interaction.member.guild.channels.get(channel.value);
     channelToSend.createMessage(`${message.value}`);
-    return interaction.createMessage(`Testing ${channelToSend}`);
+    return interaction.createMessage(
+      `Your message has been sent to that channel`
+    );
   },
 };

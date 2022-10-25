@@ -16,7 +16,7 @@ const Manager = new Eralajs.Manager({
   nodes: [
     {
       host: "localhost",
-      port: 5239,
+      port: 81,
       password: process.env.ERALA_PASSWORD,
     },
   ],
@@ -42,6 +42,8 @@ let bot = new CommandClient(
   },
   {
     prefix: "-",
+    owner: "Luminary",
+    defaultHelpCommand: false,
   }
 );
 
@@ -87,22 +89,9 @@ Manager.on("trackStart", (player, track) => {
   if (message.author.bot || !message.channel.guild) return;
   console.log(message.author + " said: " + message.content);
 }); */
-["event_handler"].forEach((handler) => {
+["event_handler", "command_handler"].forEach((handler) => {
   require(`./handlers/${handler}`)(bot, Eris, Manager, guildID, Eralajs);
 });
-const command_files = fs
-  .readdirSync("./commands/")
-  .filter((file) => file.endsWith(".js"));
-command_files.forEach((file) => {
-  const command = require(`./commands/${file}`);
-  bot.registerCommand(
-    command.name,
-    async (message, args) => command.run(bot, message, args, Manager),
-    {
-      aliases: command.alias,
-      description: command.description,
-    }
-  );
-});
+
 bot.on("rawWS", (d) => Manager.updateVoiceState(d));
 bot.connect();
