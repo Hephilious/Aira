@@ -1,6 +1,3 @@
-const Eris = require("eris");
-const Eralajs = require("erela.js");
-
 module.exports = {
   name: "play",
   description: "play something in a voice channel",
@@ -61,7 +58,7 @@ module.exports = {
     console.log(res);
     if (res.loadType == "NO_MATCHES") {
       return client.createMessage(
-        meesage.channel.id,
+        message.channel.id,
         message.author.mention +
           " I couldn't find anything that matches your search/URL"
       );

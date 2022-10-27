@@ -7,12 +7,6 @@ module.exports = {
       description: "Test Parameter Option",
       type: 3,
       required: false,
-      choices: [
-        {
-          name: "company",
-          value: "hephilon",
-        },
-      ],
     },
   ],
   run: async (client, interaction, args) => {

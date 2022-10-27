@@ -1,6 +1,3 @@
-const Eris = require("eris");
-const Eralajs = require("erela.js");
-
 module.exports = {
   name: "hi",
   description: "testing command",

@@ -16,7 +16,7 @@ const Manager = new Eralajs.Manager({
   nodes: [
     {
       host: "localhost",
-      port: 81,
+      port: 4863,
       password: process.env.ERALA_PASSWORD,
     },
   ],
@@ -90,7 +90,7 @@ Manager.on("trackStart", (player, track) => {
   console.log(message.author + " said: " + message.content);
 }); */
 ["event_handler", "command_handler"].forEach((handler) => {
-  require(`./handlers/${handler}`)(bot, Eris, Manager, guildID, Eralajs);
+  require(`./handlers/${handler}.ts`)(bot, Eris, Manager, guildID, Eralajs);
 });
 
 bot.on("rawWS", (d) => Manager.updateVoiceState(d));

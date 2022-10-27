@@ -1,12 +1,9 @@
-const { Interaction } = require("eris");
-const Eris = require("eris");
-const fs = require("fs");
-
 module.exports = (bot, Eris, Manager, guildID) => {
+  const fs = require("fs");
   const load_dirs = (dirs) => {
     const command_files = fs
       .readdirSync(`./commands/${dirs}/`)
-      .filter((file) => file.endsWith(".js"));
+      .filter((file) => file.endsWith(".ts"));
     command_files.forEach((file) => {
       const command = require(`../commands/${dirs}/${file}`);
       try {

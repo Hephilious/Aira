@@ -1,10 +1,9 @@
-const { Interaction } = require("eris");
-const fs = require("fs");
 module.exports = (bot, Eris, Manager, guildID) => {
+  const fs = require("fs");
   const load_dir = (dirs) => {
     const event_files = fs
       .readdirSync(`./events/${dirs}`)
-      .filter((file) => file.endsWith(".js"));
+      .filter((file) => file.endsWith(".ts"));
 
     event_files.forEach((file) => {
       const event = require(`../events/${dirs}/${file}`);
