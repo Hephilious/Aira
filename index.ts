@@ -41,7 +41,7 @@ let bot = new CommandClient(
     ],
   },
   {
-    prefix: "-",
+    prefix: "$",
     owner: "Luminary",
     defaultHelpCommand: false,
   }

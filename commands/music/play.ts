@@ -3,9 +3,9 @@ module.exports = {
   description: "play something in a voice channel",
   argsRequired: true,
   guildOnly: true,
-  usage: "-play <url | search>",
+  usage: "$play <url | search>",
   invalidUsageMessage:
-    "Use -help play command to get an embed of the command usage",
+    "Use $help play command to get an embed of the command usage",
   alias: [],
   run: async (client, message, args, Manager) => {
     const channel = message.member.voiceState.channelID;

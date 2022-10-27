@@ -3,7 +3,7 @@ module.exports = {
   description: "skips the current song playing",
   argsRequired: false,
   guildOnly: true,
-  usage: "-skip",
+  usage: "$skip",
   alias: [],
   run: async (client, message, args, Manager) => {
     const player = await Manager.get(message.guildID);

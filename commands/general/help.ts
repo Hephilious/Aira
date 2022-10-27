@@ -3,7 +3,7 @@ module.exports = {
   description: "retrieve a list of commands or get usage on some commands",
   argsRequired: false,
   guildOnly: false,
-  usage: "-hi",
+  usage: "$help",
   alias: [],
   run: async (client, message, args, Manager) => {
     const fs = require("fs");
@@ -43,7 +43,24 @@ module.exports = {
           `${message.author.mention} I don't seem to have a command called "${args[0]}"`
         );
     } else {
-      console.log("helllo");
+      let embed = {
+        title: "Help",
+        description: "Here's a list of commands",
+        color: 0xf76233,
+        fields: [
+          {
+            name: "Music",
+            value: "Use `$help music` to show the commands for Music and Audio",
+            inline: true,
+          },
+        ],
+        author: {
+          name: "Luminary",
+          icon_url: "https://i.ibb.co/0KJ0fT3/Luminary.png",
+        },
+      };
+      const user = await client.getDMChannel(message.author.id);
+      client.createMessage(user.id, { embed: embed });
     }
   },
 };

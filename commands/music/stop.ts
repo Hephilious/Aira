@@ -3,7 +3,7 @@ module.exports = {
   description: "kills the guilds active MusicPlayer",
   argsRequired: false,
   guildOnly: true,
-  usage: "-stop",
+  usage: "$stop",
   alias: [],
   run: async (client, message, args, Manager) => {
     const player = await Manager.get(message.guildID);

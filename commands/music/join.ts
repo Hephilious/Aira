@@ -3,7 +3,7 @@ module.exports = {
   description: "join vc",
   argsRequired: false,
   guildOnly: true,
-  usage: "-join",
+  usage: "$join",
   alias: [],
   run: async (client, message, args) => {
     try {

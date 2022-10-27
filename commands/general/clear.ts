@@ -3,9 +3,9 @@ module.exports = {
   description: "deletes an ammount of messages of your choosing",
   argsRequired: true,
   guildOnly: true,
-  usage: "-clear <ammount>",
+  usage: "$clear <ammount>",
   invalidUsageMessage:
-    "Use -help clear command to get an embed of the command usage",
+    "Use $help clear command to get an embed of the command usage",
   alias: [],
   run: async (client, message, args, Manager) => {
     let self = message.channel.permissionsOf(client.user.id).json;
@@ -30,7 +30,7 @@ module.exports = {
     number = parseInt(number);
     if (!number || number < 1) {
       return message.channel.createMessage(
-        `${message.author.mention}, ${number} is either to low or is nothing!`
+        `${message.author.mention}, ${number} is either too low or is nothing!`
       );
     }
 
