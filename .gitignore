@@ -127,3 +127,5 @@ dist
 .pnp.*
 docker-compose.yml
 Dockerfile
+
+surrealDB/Server/LOCK

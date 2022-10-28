@@ -1,4 +1,4 @@
-module.exports = (bot, Eris, Manager, guildID) => {
+module.exports = (bot, Eris, Manager, guildID, db) => {
   const fs = require("fs");
   const load_dirs = (dirs) => {
     const command_files = fs
@@ -9,7 +9,7 @@ module.exports = (bot, Eris, Manager, guildID) => {
       try {
         bot.registerCommand(
           command.name,
-          async (message, args) => command.run(bot, message, args, Manager),
+          async (message, args) => command.run(bot, message, args, Manager, db),
           {
             aliases: command.alias,
             description: command.description,

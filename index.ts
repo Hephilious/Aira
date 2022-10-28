@@ -9,9 +9,30 @@ const { readdirSync } = require("fs");
 const { fileURLToPath } = require("url");
 const Eralajs = require("erela.js");
 const fs = require("fs");
+const Surreal = require("surrealdb.js").default;
 require("dotenv").config();
 
 const guildID = "907099087101370418";
+const db = new Surreal("http://0.0.0.0:8000/rpc");
+let data;
+async function main() {
+  try {
+    console.log("started DB connection");
+    await db.signin({
+      user: "root",
+      pass: "root",
+    });
+    let connected = await db.query("INFO FOR KV;");
+    console.log(`connected to ${connected}`);
+    await db.wait();
+
+    await db.use("BackPackBot", "BackPackDataBase");
+  } catch (err) {
+    console.log(`ERROR ${err}`);
+  }
+}
+
+main();
 const Manager = new Eralajs.Manager({
   nodes: [
     {
@@ -47,23 +68,6 @@ let bot = new CommandClient(
   }
 );
 
-/* bot.on("ready", async () => {
-  let discriminator = bot.user.discriminator;
-  let botname = bot.user.username;
-  Manager.init(bot.user.id);
-  console.log(`Bot ${botname}#${discriminator} has logged on`);
-  bot.editStatus("dnd", { name: "Hephilious", type: 3 });
-  try {
-    bot.createGuildCommand(guildID, {
-      name: "ping",
-      type: Eris.Constants.ApplicationCommandOptionTypes.CHAT_INPUT,
-      description: "pong",
-    });
-  } catch (err) {
-    console.log(err);
-  }
-}); */
-
 Manager.on("nodeConnect", (node) => {
   console.log(`Connected to: ${node.options.identifier}`);
 });
@@ -77,20 +81,8 @@ Manager.on("trackStart", (player, track) => {
   });
 });
 
-/* bot.on("interactionCreate", (Interaction) => {
-  if (Interaction instanceof Eris.CommandInteraction) {
-    if (Interaction.data.name == "ping") {
-      return Interaction.createMessage("Pong!");
-    }
-  }
-}); */
-
-/* bot.on("messageCreate", async (message) => {
-  if (message.author.bot || !message.channel.guild) return;
-  console.log(message.author + " said: " + message.content);
-}); */
 ["event_handler", "command_handler"].forEach((handler) => {
-  require(`./handlers/${handler}.ts`)(bot, Eris, Manager, guildID, Eralajs);
+  require(`./handlers/${handler}.ts`)(bot, Eris, Manager, guildID, db);
 });
 
 bot.on("rawWS", (d) => Manager.updateVoiceState(d));
