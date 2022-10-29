@@ -25,5 +25,5 @@ module.exports = (bot, Eris, Manager, guildID, db) => {
       }
     });
   };
-  ["music", "general"].forEach((e) => load_dirs(e));
+  ["music", "general", "ticket"].forEach((e) => load_dirs(e));
 };

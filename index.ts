@@ -13,6 +13,9 @@ const Surreal = require("surrealdb.js").default;
 require("dotenv").config();
 
 const guildID = "907099087101370418";
+
+//to start surrealDB
+//surreal start --log trace --user root --pass root file://surrealDB/Server
 const db = new Surreal("http://0.0.0.0:8000/rpc");
 let data;
 async function main() {
@@ -27,6 +30,24 @@ async function main() {
     await db.wait();
 
     await db.use("BackPackBot", "BackPackDataBase");
+
+    await db.query("DEFINE TABLE users SCHEMAFULL;");
+    await db.query("DEFINE TABLE guilds SCHEMAFULL;");
+
+    await db.query("DEFINE FIELD name ON TABLE user TYPE string;");
+    await db.query("DEFINE FIELD money ON TABLE user TYPE float;");
+
+    await db.query("DEFINE FIELD name ON TABLE guilds TYPE string;");
+    await db.query("DEFINE FIELD categories ON TABLE guilds TYPE object;");
+    await db.query(
+      "DEFINE FIELD categories.ticket ON TABLE guilds TYPE string;"
+    );
+    await db.query("DEFINE FIELD categories.info ON TABLE guilds TYPE string;");
+    await db.query("DEFINE FIELD categories.main ON TABLE guilds TYPE string;");
+    await db.query("DEFINE FIELD channels ON TABLE guilds TYPE object;");
+    await db.query("DEFINE FIELD channels.music ON TABLE guilds TYPE string;");
+    await db.query("DEFINE FIELD channels.rules ON TABLE guilds TYPE string;");
+    await db.query("DEFINE FIELD channels.bot ON TABLE guilds TYPE string;");
   } catch (err) {
     console.log(`ERROR ${err}`);
   }
