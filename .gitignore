@@ -129,3 +129,5 @@ docker-compose.yml
 Dockerfile
 
 surrealDB/Server/LOCK
+
+surrealDB/Server?LOG
