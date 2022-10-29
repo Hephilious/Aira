@@ -1,2 +1,5 @@
-# Aira
- Discord bot created with eros
+![sq](images/BackPackBot.png)
+
+# Back Pack Bot
+
+Discord bot created with eros
