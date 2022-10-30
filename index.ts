@@ -37,7 +37,12 @@ async function main() {
     await db.query("DEFINE FIELD name ON TABLE user TYPE string;");
     await db.query("DEFINE FIELD money ON TABLE user TYPE float;");
 
-    await db.query("DEFINE FIELD name ON TABLE guilds TYPE string;");
+    await db.query("DEFINE FIELD moderation ON TABLE guilds TYPE object;");
+    await db.query(
+      "DEFINE FIELD moderation.admins ON TABLE guilds TYPE array;"
+    );
+    await db.query("DEFINE FIELD moderation.mods ON TABLE guilds TYPE array;");
+
     await db.query("DEFINE FIELD categories ON TABLE guilds TYPE object;");
     await db.query(
       "DEFINE FIELD categories.ticket ON TABLE guilds TYPE string;"

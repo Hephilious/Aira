@@ -130,4 +130,4 @@ Dockerfile
 
 surrealDB/Server/LOCK
 
-surrealDB/Server?LOG
+surrealDB/Server/LOG

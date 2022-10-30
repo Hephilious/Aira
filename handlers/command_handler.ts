@@ -20,7 +20,6 @@ module.exports = (bot, Eris, Manager, guildID, db) => {
           }
         );
       } catch (err) {
-        console.log(err);
         return console.log("Command already registered");
       }
     });

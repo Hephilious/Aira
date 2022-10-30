@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "ts-node-dev --respawn index.ts",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "Luminary",
@@ -14,7 +15,10 @@
     "erela.js": "^2.4.0",
     "eris": "^0.17.1",
     "fs": "^0.0.1-security",
-    "surrealdb.js": "^0.5.0"
+    "surrealdb.js": "^0.5.0",
+    "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^4.8.4"
   },
   "devDependencies": {
     "@types/node": "^18.11.7"

@@ -1,6 +1,5 @@
 module.exports = {
   run: async (client, message, args, db) => {
-    const { RecordError } = require("surrealdb.js");
     const { CategoryChannel } = require("eris");
     const guild = client.guilds.get(message.guildID);
     if (args[0] == "set") {

@@ -8,11 +8,12 @@ module.exports = {
   run: async (client, message, args, Manager, db) => {
     const ticketSet = require("./ticketSet");
     const ticketCreate = require("./ticketCreate");
-    const { RecordError } = require("surrealdb.js");
-    const { CategoryChannel } = require("eris");
-    const guild = client.guilds.get(message.guildID);
+    const ticketClose = require("./ticketClose");
+    const ticketAdd = require("./ticketAdd");
 
     ticketSet.run(client, message, args, db);
     ticketCreate.run(client, message, args, db);
+    ticketClose.run(client, message, args, db);
+    ticketAdd.run(client, message, args, db);
   },
 };

@@ -1,13 +1,13 @@
+import { Guild } from "eris";
+
 module.exports = {
   run: async (client, message, args, db) => {
-    const { RecordError } = require("surrealdb.js");
-    const { CategoryChannel } = require("eris");
-    const createPerm = require("./ticketCreatePermObj.js");
-    const guild = client.guilds.get(message.guildID);
-    let shouldContinue;
+    const createPerm = require("./ticketCreatePermObj");
+    const guild: Guild = client.guilds.get(message.guildID);
+    let shouldContinue: boolean;
     if (args[0] == "create") {
       let guilds;
-      let ticketCategory;
+      let ticketCategory: String;
       try {
         guilds = await db.select(`guilds:${guild.id}`);
         ticketCategory = guilds[0].categories.ticket;
@@ -33,7 +33,11 @@ For more information use \`$help ticket set\`.`);
       });
       let mod;
       if (shouldContinue) {
-        let perms = createPerm.run(client, message, db);
+        let permission: Array<Object>;
+        let perms: Promise<Array<Object>> = createPerm.run(client, message, db);
+        await perms.then((f) => {
+          permission = f;
+        });
         let ticketChannel = await client.createChannel(
           guild.id,
           `ticket-${message.author.id}`,
@@ -41,10 +45,10 @@ For more information use \`$help ticket set\`.`);
           {
             nsfw: false,
             parentID: ticketCategory,
-            permissionOverwrites: perms,
+            permissionOverwrites: permission,
           }
         );
-        console.log(ticketChannel.permissionOverwrites);
+
         return message.channel
           .createMessage(`${message.author.mention}, I Opened a ticket called:
     ${ticketChannel.mention}`);
