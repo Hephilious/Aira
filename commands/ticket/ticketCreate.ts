@@ -1,7 +1,8 @@
 import { Guild } from "eris";
+import Surreal from "surrealdb.js";
 
 module.exports = {
-  run: async (client, message, args, db) => {
+  run: async (client, message, args, db: Surreal) => {
     const createPerm = require("./ticketCreatePermObj");
     const guild: Guild = client.guilds.get(message.guildID);
     let shouldContinue: boolean;
@@ -9,8 +10,16 @@ module.exports = {
       let guilds;
       let ticketCategory: String;
       try {
-        guilds = await db.select(`guilds:${guild.id}`);
+        if (db.token) {
+          guilds = await db.select(`guilds:${guild.id}`);
+        } else {
+          return message.channel.createMessage(
+            `${message.author.mention}, My database is not up!(I require it to know which category I should put the ticket channels in!)`
+          );
+        }
+
         ticketCategory = guilds[0].categories.ticket;
+        console.log(db);
       } catch (err) {
         if (err.name == "RecordError") {
           return message.channel

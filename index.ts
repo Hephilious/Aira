@@ -1,3 +1,5 @@
+import Surreal from "surrealdb.js";
+
 const {
   CommandClient,
   Interaction,
@@ -9,18 +11,17 @@ const { readdirSync } = require("fs");
 const { fileURLToPath } = require("url");
 const Eralajs = require("erela.js");
 const fs = require("fs");
-const Surreal = require("surrealdb.js").default;
+//const Surreal = require("surrealdb.js").default;
 require("dotenv").config();
 
 const guildID = "907099087101370418";
 
 //to start surrealDB
 //surreal start --log trace --user root --pass root file://surrealDB/Server
-const db = new Surreal("http://0.0.0.0:8000/rpc");
+const db: Surreal = new Surreal("http://0.0.0.0:8000/rpc");
 let data;
 async function main() {
   try {
-    console.log("started DB connection");
     await db.signin({
       user: "root",
       pass: "root",
