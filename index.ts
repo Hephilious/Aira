@@ -1,5 +1,3 @@
-import Surreal from "surrealdb.js";
-
 const {
   CommandClient,
   Interaction,
@@ -11,32 +9,37 @@ const { readdirSync } = require("fs");
 const { fileURLToPath } = require("url");
 const Eralajs = require("erela.js");
 const fs = require("fs");
-//const Surreal = require("surrealdb.js").default;
+const Surreal = require("surrealdb.js").default;
 require("dotenv").config();
 
 const guildID = "907099087101370418";
 
 //to start surrealDB
 //surreal start --log trace --user root --pass root file://surrealDB/Server
-const db: Surreal = new Surreal("http://0.0.0.0:8000/rpc");
-let data;
+const db: typeof Surreal = new Surreal("http://0.0.0.0:8000/rpc");
+
 async function main() {
   try {
+    await db.connect("http://0.0.0.0:8000/rpc");
     await db.signin({
       user: "root",
       pass: "root",
     });
+    let token = db.token;
     let connected = await db.query("INFO FOR KV;");
-    console.log(`connected to ${connected}`);
     await db.wait();
-
+    console.log(connected);
     await db.use("BackPackBot", "BackPackDataBase");
 
     await db.query("DEFINE TABLE users SCHEMAFULL;");
     await db.query("DEFINE TABLE guilds SCHEMAFULL;");
+    await db.query("DEFINE TABLE insights SCHEMAFULL;");
 
-    await db.query("DEFINE FIELD name ON TABLE user TYPE string;");
-    await db.query("DEFINE FIELD money ON TABLE user TYPE float;");
+    await db.query("DEFINE FIELD guilds ON TABLE insights TYPE float;");
+    await db.query("DEFINE FIELD users ON TABLE insights TYPE float;");
+
+    await db.query("DEFINE FIELD name ON TABLE users TYPE string;");
+    await db.query("DEFINE FIELD money ON TABLE users TYPE float;");
 
     await db.query("DEFINE FIELD moderation ON TABLE guilds TYPE object;");
     await db.query(
@@ -114,3 +117,4 @@ Manager.on("trackStart", (player, track) => {
 
 bot.on("rawWS", (d) => Manager.updateVoiceState(d));
 bot.connect();
+console.log(bot.shards);

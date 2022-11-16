@@ -13,13 +13,15 @@ let embeds: Array<object> = [
     color: 0xf76233,
     fields: [
       {
-        name: "$play <url || search> | Music",
+        name: "$play <url || search> | **Music**",
         value:
           "plays a song of your choice by using a youtube url of your choice or a youtube search as an argument" +
           "Use `$play help` to get more info on the command.",
       },
       {
-        name: "",
+        name: "$skip | **Music**",
+        value:
+          "Stops the music currently playing; you must be in a voice channel with me to run this command.",
       },
     ],
   },

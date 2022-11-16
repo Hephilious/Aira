@@ -15,7 +15,7 @@ module.exports = {
       required: true,
     },
   ],
-  run: async (client, interaction, args) => {
+  run: async (client, interaction, args, Manager) => {
     const [channel, message] = args;
     const channelToSend = interaction.member.guild.channels.get(channel.value);
     channelToSend.createMessage(`${message.value}`);

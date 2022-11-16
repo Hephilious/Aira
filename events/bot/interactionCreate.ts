@@ -8,6 +8,14 @@ module.exports = (Eris, bot, Manager, guildID, db, Interaction) => {
       .filter((file) => file.endsWith(".ts"));
     slash_command_files.forEach((file) => {
       const slash_command = require(`../../slash_commands/${file}`);
+      if (Interaction.data.name == slash_command.name) {
+        return slash_command.run(
+          bot,
+          Interaction,
+          Interaction.data.options,
+          Manager
+        );
+      }
     });
   }
   if (Interaction instanceof ComponentInteraction) {

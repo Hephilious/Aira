@@ -7,10 +7,11 @@ module.exports = {
     const guild: Guild = client.guilds.get(message.guildID);
     let shouldContinue: boolean;
     if (args[0] == "create") {
+      let token = await db.token;
       let guilds;
       let ticketCategory: String;
       try {
-        if (db.token) {
+        if (token) {
           guilds = await db.select(`guilds:${guild.id}`);
         } else {
           return message.channel.createMessage(

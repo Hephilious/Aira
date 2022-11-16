@@ -1,5 +1,7 @@
+import Surreal from "surrealdb.js";
+
 module.exports = {
-  run: async (client, message, args, db) => {
+  run: async (client, message, args, db: Surreal) => {
     const { CategoryChannel } = require("eris");
     const guild = client.guilds.get(message.guildID);
     if (args[0] == "set") {

@@ -1,4 +1,6 @@
-module.exports = (Eris, bot, Manager, guildID) => {
+import Surreal from "surrealdb.js";
+
+module.exports = async (Eris, bot, Manager, guildID, db: Surreal) => {
   const fs = require("fs");
   let discriminator = bot.user.discriminator;
   let botname = bot.user.username;
@@ -11,7 +13,7 @@ module.exports = (Eris, bot, Manager, guildID) => {
       .filter((file) => file.endsWith(".ts"));
     slash_command_files.forEach((file) => {
       const slash_command = require(`../../slash_commands/${file}`);
-      bot.createGuildCommand(guildID, {
+      bot.createCommand({
         name: slash_command.name,
         type: Eris.Constants.ApplicationCommandOptionTypes.CHAT_INPUT,
         description: slash_command.description,
@@ -21,5 +23,21 @@ module.exports = (Eris, bot, Manager, guildID) => {
   } catch (err) {
     console.log(err);
   }
-  console.log(bot.commands.Command);
+  let numOfGuilds: number = bot.guilds.size;
+  try {
+    let updated = await db.change(`insights:${bot.user.id}`, {
+      guilds: numOfGuilds,
+    });
+    console.log(updated);
+  } catch (err) {
+    console.log(err);
+    if (err.name == "RecordError") {
+      bot.gulds.array.forEach((element) => {
+        numOfGuilds++;
+      });
+      let insightCreate = await db.create(`insights:${bot.user.id}`, {
+        guilds: numOfGuilds,
+      });
+    }
+  }
 };
